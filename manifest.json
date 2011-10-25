@@ -1,0 +1,15 @@
+{
+	"app": {
+		"title": "Reunion",
+		"description": "A game about two people cooperating to find each other.",
+		"version": "0.0.1",
+		"runtime": "executable",
+		"server": "127.0.0.1:7000",
+		"appModule": "UNUSED",
+		"requiredSiftCount" : 3,
+		"imagesPath": "assets/images",
+	    "soundsPath": "assets/sounds",
+	    "instructions": "assets/instructions",
+		"coverArt": "assets/images/cover.png"
+	}
+}
