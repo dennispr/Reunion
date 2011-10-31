@@ -65,32 +65,19 @@ namespace Game
 				playerCubes.Add(mazeCubes[i]);
 			}
 			
+			XmlMazeReader mazeReader = new XmlMazeReader();
+			
 			// instantiate a MazeManager and generate a level
 			new MazeManager();
-			MazeManager.use.GenerateRandomMaze(3);
+			//MazeManager.use.GenerateRandomMaze(3);
 			
-			// put the players in rooms
-			List<MazeRoom> validRooms = new List<MazeRoom>();
-			for (int c=0; c<MazeManager.use.rooms.GetUpperBound(0); c++)
-			{
-				for (int r=0; r<MazeManager.use.rooms.GetUpperBound(1); r++)
-				{
-					if (MazeManager.use.rooms[c,r] == null) continue;
-					validRooms.Add(MazeManager.use.rooms[c,r]);
-				}
-			}
+			mazeReader.setUpMap("../../assets/maps/sampleMap.xml", MazeManager.use, players);
+			
 			for (int i=0; i<players.Count; i++)
 			{
-				while (players[i].currentRoom == null)
-				{
-					int j = (new Random()).Next(0, validRooms.Count);
-					if (validRooms[j].occupant == null)
-					{
-						players[i].OccupyRoom(validRooms[j]);
-						playerCubes[i].owner = players[i];
-					}
-				}
+				playerCubes[i].owner = players[i];
 			}
+			
 			foreach (MazeCube c in playerCubes)
 			{
 				c.currentRoom = c.owner.currentRoom;

@@ -34,6 +34,43 @@ namespace Game
 		/// </summary>
 		private MazeRoom[,] _rooms;
 		
+		public void MakeMaze(int height, int width){
+			Log.Debug("making maze");
+			_rooms = new MazeRoom[height, width];
+			for(int y = 0; y<height; y++){
+				for(int x = 0; x<width; x++){
+					_rooms[x,y] = new MazeRoom();
+					_rooms[x,y].position.x = x;
+					_rooms[x,y].position.y = y;
+				}
+			}
+		}
+		
+		public void setMazeRoom(int x, int y, string type){
+			Log.Debug("setting room "+x+" "+y);
+			Log.Debug("You can go:");
+			if(type.IndexOf('n') != -1){
+				//north!
+				Log.Debug("North");
+				_rooms[x,y].SetNeighbor(_rooms[x,y-1], Cube.Side.TOP, MazeRoom.EntryState.Open);
+			}
+			if(type.IndexOf('s') != -1){
+				//south!
+				Log.Debug("South");
+				_rooms[x,y].SetNeighbor(_rooms[x,y+1], Cube.Side.BOTTOM, MazeRoom.EntryState.Open);
+			}
+			if(type.IndexOf('e') != -1){
+				//east!
+				Log.Debug("East");
+				_rooms[x,y].SetNeighbor(_rooms[x+1,y], Cube.Side.RIGHT, MazeRoom.EntryState.Open);
+			}
+			if(type.IndexOf('w') != -1){
+				//west!
+				Log.Debug("West");
+				_rooms[x,y].SetNeighbor(_rooms[x-1,y], Cube.Side.LEFT, MazeRoom.EntryState.Open);
+			}
+		}
+		
 		/// <summary>
 		/// Generates the random maze.
 		/// </summary>
